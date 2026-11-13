@@ -3,7 +3,7 @@ import { defineConfig } from "vite";
 
 export default defineConfig({
   root: "src/",
-
+  base: "/sleep-outside-team-07/",
   build: {
     outDir: "../dist",
     rollupOptions: {
