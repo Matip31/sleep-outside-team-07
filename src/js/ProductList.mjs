@@ -6,15 +6,16 @@ export default class ProductList {
         this.listElement = listElement;
     }
     async init() {
-        const list = await this.dataSource.getData();
-        console.log("Productos obtenidos:", list);
+        const list = await this.dataSource.getData(this.category);
+        const title = document.querySelector("#product-list-title");
+        title.textContent = this.category;
         this.renderList(list);
     }
     productCardTemplate(product) {
         return `
         <li class="product-card">
             <a href="../product_pages/index.html?product=${product.Id}">
-                <img src="${product.Image}" alt="${product.NameWithoutBrand}" />
+                <img src="${product.Images.PrimaryMedium}" alt="${product.NameWithoutBrand}" />
                 <h3>${product.Brand.Name}</h3>
                 <h2>${product.NameWithoutBrand}</h2>
                 <p>${product.FinalPrice}</p>
