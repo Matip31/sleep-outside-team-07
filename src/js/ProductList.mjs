@@ -14,6 +14,9 @@ export default class ProductList {
     productCardTemplate(product) {
         return `
         <li class="product-card">
+            ${product.FinalPrice < product.SuggestedRetailPrice
+                ? '<span class="discount-badge">SALE</span>'
+                : ''}
             <a href="../product_pages/index.html?product=${product.Id}">
                 <img src="${product.Images.PrimaryMedium}" alt="${product.NameWithoutBrand}" />
                 <h3>${product.Brand.Name}</h3>
