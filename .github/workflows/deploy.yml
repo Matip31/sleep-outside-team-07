@@ -25,7 +25,11 @@ jobs:
           node-version: 20
 
       - run: npm ci
-      - run: npm run build
+
+      - name: Build project
+        run: npm run build
+        env:
+          VITE_SERVER_URL: https://wdd330-backend.onrender.com/
 
       - uses: actions/upload-pages-artifact@v3
         with:
