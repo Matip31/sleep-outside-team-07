@@ -49,12 +49,14 @@ export async function loadTemplate(path) {
 
 
 export async function loadHeaderFooter() {
+  const baseURL = import.meta.env.BASE_URL;
+
   const headerTemplate = await loadTemplate(
-    `${import.meta.env.BASE_URL}partials/header.html`
+    `${baseURL}partials/header.html`
   );
 
   const footerTemplate = await loadTemplate(
-    `${import.meta.env.BASE_URL}partials/footer.html`
+    `${baseURL}partials/footer.html`
   );
 
   const headerElement = document.querySelector("#main-header");
@@ -62,4 +64,15 @@ export async function loadHeaderFooter() {
 
   renderWithTemplate(headerTemplate, headerElement);
   renderWithTemplate(footerTemplate, footerElement);
+
+  const logoImage = headerElement.querySelector(".logo img");
+  const logoLink = headerElement.querySelector(".logo a");
+  const cartLink = headerElement.querySelector(".cart a");
+
+  logoImage.src = `${baseURL}images/noun_Tent_2517.svg`;
+  logoLink.href = `${baseURL}index.html`;
+  cartLink.href = `${baseURL}cart/index.html`;
 }
+
+
+

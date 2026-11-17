@@ -17,7 +17,7 @@ export default class ProductList {
             ${product.FinalPrice < product.SuggestedRetailPrice
                 ? '<span class="discount-badge">SALE</span>'
                 : ''}
-            <a href="../product_pages/index.html?product=${product.Id}">
+            <a href="${import.meta.env.BASE_URL}product_pages/index.html?product=${product.Id}">
                 <img src="${product.Images.PrimaryMedium}" alt="${product.NameWithoutBrand}" />
                 <h3>${product.Brand.Name}</h3>
                 <h2>${product.NameWithoutBrand}</h2>
