@@ -40,6 +40,13 @@ function productDetailsTemplate(product) {
 
     document.querySelector("#productPrice").textContent = euroPrice;
 
+    const discountBadge = document.querySelector("#productDiscount");
+
+    discountBadge.innerHTML =
+        product.FinalPrice < product.SuggestedRetailPrice
+            ? '<span class="discount-badge">SALE</span>'
+            : '';
+    
     document.querySelector("#productColor").textContent =
         product.Colors[0].ColorName;
 
