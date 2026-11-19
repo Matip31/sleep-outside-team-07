@@ -2,17 +2,33 @@ import { getLocalStorage, loadHeaderFooter } from "./utils.mjs";
 
 loadHeaderFooter();
 
+
 function renderCartContents() {
   const cartItems = getLocalStorage("so-cart") || [];
   const htmlItems = cartItems.map((item) => cartItemTemplate(item));
   document.querySelector(".product-list").innerHTML = htmlItems.join("");
+
+  if (cartItems.length > 0) {
+    const cartFooter = document.querySelector(".cart-footer");
+    cartFooter.classList.remove("hide");
+
+    const total = cartItems.reduce((sum, item) => {
+      return sum + Number(item.FinalPrice);
+    }, 0);
+
+    cartFooter.innerHTML = `
+  <p class="cart-total">Total: $${total.toFixed(2)}</p>
+  <a href="../checkout/index.html" class="checkout-button">Checkout</a>
+`;
+  }
 }
+
 
 function cartItemTemplate(item) {
   const newItem = `<li class="cart-card divider">
   <a href="#" class="cart-card__image">
     <img
-      src="${item.Image}"
+      src="${item.Images.PrimaryExtraLarge}"
       alt="${item.Name}"
     />
   </a>
