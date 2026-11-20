@@ -9,13 +9,16 @@ checkout.init();
 
 const checkoutForm = document.querySelector("#checkout-form");
 
-checkoutForm.addEventListener("submit", (event) => {
+checkoutForm.addEventListener("submit", async (event) => {
     event.preventDefault();
 
-    if (!checkoutForm.checkValidity()) {
-        checkoutForm.reportValidity();
-        return;
-    }
+    try {
+        const response = await checkout.checkout(checkoutForm);
 
-    alert("Your order has been placed successfully!");
+        console.log("Order submitted:", response);
+        alert("Your order has been placed successfully!");
+    } catch (error) {
+        console.error("Checkout error:", error);
+        alert("There was a problem placing your order. Please try again.");
+    }
 });
