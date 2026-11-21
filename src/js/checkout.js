@@ -16,9 +16,10 @@ checkoutForm.addEventListener("submit", async (event) => {
         const response = await checkout.checkout(checkoutForm);
 
         console.log("Order submitted:", response);
-        alert("Your order has been placed successfully!");
+
     } catch (error) {
         console.error("Checkout error:", error);
+
         alert("There was a problem placing your order. Please try again.");
     }
 });

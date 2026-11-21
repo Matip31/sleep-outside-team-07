@@ -63,14 +63,22 @@ export default class CheckoutProcess {
     }
 
     async checkout(form) {
-        const order = formDataToJSON(form);
-        const [year, month] = order.expiration.split("-");
-        order.expiration = `${Number(month)}/${year.slice(-2)}`;
-        order.orderDate = new Date().toISOString();
-        order.orderTotal = this.orderTotal.toFixed(2);
-        order.tax = this.tax.toFixed(2);
-        order.shipping = this.shipping;
-        order.items = this.packageItems(this.cart);
-        return await this.externalServices.checkout(order);
+        try {
+            const order = formDataToJSON(form);
+            const [year, month] = order.expiration.split("-");
+            order.expiration = `${Number(month)}/${year.slice(-2)}`;
+            order.orderDate = new Date().toISOString();
+            order.orderTotal = this.orderTotal.toFixed(2);
+            order.tax = this.tax.toFixed(2);
+            order.shipping = this.shipping;
+            order.items = this.packageItems(this.cart);
+            const result = await this.externalServices.checkout(order);
+            localStorage.removeItem("so-cart");
+            window.location.href = "./success.html";
+            return result;
+        } catch (err) {
+            console.error("Checkout error:", err);
+            throw err;
+        }
     }
 }
